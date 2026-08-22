@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>sixxly</title>
+  <rect x="0" y="0" width="512" height="512" fill="#0b0e14"/>
+  <polygon points="256,106 386,181 386,331 256,406 126,331 126,181"
+           fill="none" stroke="#64f4ac" stroke-width="34"
+           stroke-linejoin="round" stroke-linecap="round"/>
+</svg>
