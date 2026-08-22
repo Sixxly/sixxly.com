@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Simpler and Better</title>
+  <rect x="0" y="0" width="512" height="512" fill="#0b0e14"/>
+  <rect x="76" y="150" width="360" height="54" rx="27" fill="#ffb454"/>
+  <rect x="136" y="229" width="240" height="54" rx="27" fill="#ffb454"/>
+  <rect x="196" y="308" width="120" height="54" rx="27" fill="#ffb454"/>
+</svg>

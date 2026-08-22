@@ -1,0 +1,14 @@
+name = "sixxly-pixel"
+main = "pixel-worker.js"
+compatibility_date = "2026-08-23"
+
+# Serve the pixel on both domains' track subdomains.
+routes = [
+  { pattern = "track.sixxly.com/*",           zone_name = "sixxly.com" },
+  { pattern = "track.simplerandbetter.com/*", zone_name = "simplerandbetter.com" },
+]
+
+# Queryable via the Analytics Engine SQL API.
+[[analytics_engine_datasets]]
+binding = "PIXEL"
+dataset = "pixel_hits"
