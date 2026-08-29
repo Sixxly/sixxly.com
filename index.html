@@ -1,232 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sixxly</title>
-  <meta name="description" content="sixxly — six letters, endless possibilities. Something good is taking shape.">
-  <meta property="og:title" content="sixxly">
-  <meta property="og:description" content="Six letters, endless possibilities. Something good is taking shape.">
-  <meta property="og:url" content="https://sixxly.com">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,6 88,28 88,72 50,94 12,72 12,28' fill='none' stroke='%2364f4ac' stroke-width='8'/%3E%3C/svg%3E">
-  <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <style>
-    /* Space Grotesk by Florian Karsten — SIL Open Font License 1.1.
-       Self-hosted: no third-party requests, no visitor data leaves this domain. */
-    @font-face {
-      font-family: 'Space Grotesk';
-      font-style: normal;
-      font-weight: 300 700;
-      font-display: swap;
-      src: url('/assets/fonts/space-grotesk-latin.woff2') format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-    @font-face {
-      font-family: 'Space Grotesk';
-      font-style: normal;
-      font-weight: 300 700;
-      font-display: swap;
-      src: url('/assets/fonts/space-grotesk-latin-ext.woff2') format('woff2');
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-    @font-face {
-      font-family: 'Space Grotesk';
-      font-style: normal;
-      font-weight: 300 700;
-      font-display: swap;
-      src: url('/assets/fonts/space-grotesk-vietnamese.woff2') format('woff2');
-      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-    }
-    :root {
-      --bg: #0b0e14;
-      --bg-soft: #11151f;
-      --ink: #e8ecf4;
-      --ink-dim: #8b93a7;
-      --accent: #64f4ac;
-      --accent-2: #4cc9f0;
-      --line: rgba(232, 236, 244, 0.08);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: clip; }
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.6;
-      overflow-x: clip;
-    }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
-
-    header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.5rem 0;
-    }
-    .logo {
-      display: flex; align-items: center; gap: 0.6rem;
-      font-weight: 700; font-size: 1.25rem; letter-spacing: 0.02em;
-      color: var(--ink);
-    }
-    .logo:hover { text-decoration: none; }
-    .logo svg { width: 1.5rem; height: 1.5rem; }
-    nav a { color: var(--ink-dim); margin-left: 1.5rem; font-size: 0.95rem; }
-    nav a:hover { color: var(--ink); text-decoration: none; }
-
-    .hero {
-      position: relative;
-      padding: 7rem 0 6rem;
-      text-align: center;
-    }
-    .hero::before {
-      content: "";
-      position: absolute; inset: -8rem -20rem 0;
-      background:
-        radial-gradient(600px 300px at 50% 0%, rgba(100, 244, 172, 0.12), transparent 70%),
-        radial-gradient(500px 260px at 70% 20%, rgba(76, 201, 240, 0.10), transparent 70%);
-      pointer-events: none;
-    }
-    .hex-bg {
-      position: absolute; left: 50%; top: 50%;
-      transform: translate(-50%, -54%);
-      width: min(560px, 90vw); opacity: 0.35;
-      pointer-events: none;
-    }
-    .hex-bg polygon {
-      fill: none; stroke: var(--line); stroke-width: 1;
-    }
-    .hex-bg .spin { animation: spin 90s linear infinite; transform-origin: 50% 50%; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .hero h1 {
-      position: relative;
-      font-size: clamp(3.5rem, 12vw, 7rem);
-      font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
-    }
-    .hero h1 .xx {
-      background: linear-gradient(120deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
-    }
-    .hero p.tag {
-      position: relative;
-      margin: 1.5rem auto 0; max-width: 34rem;
-      font-size: clamp(1.05rem, 2.5vw, 1.3rem); color: var(--ink-dim);
-    }
-    .hero .cta {
-      position: relative;
-      display: inline-block; margin-top: 2.5rem;
-      padding: 0.85rem 2rem; border-radius: 999px;
-      background: linear-gradient(120deg, var(--accent), var(--accent-2));
-      color: #06210f; font-weight: 700; font-size: 1rem;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .hero .cta:hover {
-      text-decoration: none; transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(100, 244, 172, 0.25);
-    }
-
-    .six {
-      padding: 4rem 0 5rem;
-      border-top: 1px solid var(--line);
-    }
-    .six h2 {
-      text-align: center; font-size: 1.1rem; font-weight: 500;
-      color: var(--ink-dim); letter-spacing: 0.2em; text-transform: uppercase;
-      margin-bottom: 2.5rem;
-    }
-    .grid {
-      display: grid; gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-    .card {
-      background: var(--bg-soft);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 1.5rem;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-    .card:hover { border-color: rgba(100, 244, 172, 0.35); transform: translateY(-3px); }
-    .card .num {
-      font-size: 0.85rem; font-weight: 700; color: var(--accent);
-      letter-spacing: 0.1em;
-    }
-    .card h3 { margin: 0.5rem 0 0.35rem; font-size: 1.1rem; }
-    .card p { color: var(--ink-dim); font-size: 0.95rem; }
-
-    .contact {
-      text-align: center;
-      padding: 5rem 0;
-      border-top: 1px solid var(--line);
-    }
-    .contact h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -0.02em; }
-    .contact p { color: var(--ink-dim); margin-top: 0.75rem; }
-    .contact a.mail {
-      display: inline-block; margin-top: 1.5rem; font-size: 1.15rem; font-weight: 500;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 2rem 0 3rem;
-      text-align: center;
-      color: var(--ink-dim); font-size: 0.85rem;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Represented Litigant Templates | Litigant's Command Pack</title>
+<meta name="description" content="Case-management templates for self-represented litigants: chronology, evidence index, deadline tracker, hearing-prep checklist. AU$29, instant download.">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <a class="logo" href="/">
-        <svg viewBox="0 0 100 100" aria-hidden="true">
-          <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" fill="none" stroke="#64f4ac" stroke-width="8"/>
-        </svg>
-        sixxly
-      </a>
-      <nav>
-        <a href="#six">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
 
-    <section class="hero">
-      <svg class="hex-bg" viewBox="0 0 400 400" aria-hidden="true">
-        <g class="spin">
-          <polygon points="200,40 338,120 338,280 200,360 62,280 62,120"/>
-          <polygon points="200,80 304,140 304,260 200,320 96,260 96,140"/>
-          <polygon points="200,120 269,160 269,240 200,280 131,240 131,160"/>
-        </g>
-      </svg>
-      <h1>si<span class="xx">xx</span>ly</h1>
-      <p class="tag">Six letters. Endless possibilities.<br>Something good is taking shape here.</p>
-      <a class="cta" href="#contact">Say hello</a>
-    </section>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="index.html">SIXXLY</a>
+  <nav class="nav">
+    <a href="tools/deadline-calculator.html">Free Deadline Calculator</a>
+    <a href="index.html#pack">The Command Pack</a>
+    <a href="legal.html">Legal</a>
+  </nav>
+</div></header>
 
-    <section class="six" id="six">
-      <h2>Six sides to every story</h2>
-      <div class="grid">
-        <div class="card"><span class="num">01</span><h3>Simple</h3><p>No clutter, no noise. Just the thing itself, done properly.</p></div>
-        <div class="card"><span class="num">02</span><h3>Sharp</h3><p>Every edge considered. Every detail on purpose.</p></div>
-        <div class="card"><span class="num">03</span><h3>Swift</h3><p>Light, fast, and straight to the point.</p></div>
-        <div class="card"><span class="num">04</span><h3>Solid</h3><p>Built to last — like the hexagon, nature's sturdiest shape.</p></div>
-        <div class="card"><span class="num">05</span><h3>Subtle</h3><p>The best work doesn't shout. It just works.</p></div>
-        <div class="card"><span class="num">06</span><h3>Soon</h3><p>The full story lands here shortly. Watch this space.</p></div>
-      </div>
-    </section>
+<section class="hero"><div class="wrap">
+  <p class="kicker">For the self-represented</p>
+  <h1>Run your case like a registry runs a court list.</h1>
+  <p class="lead">You don't have a lawyer. You still have a case to command. The Litigant's
+  Command Pack gives you the templates a well-run legal office uses — chronology, evidence
+  index, deadline tracker and more — so nothing gets lost, missed or forgotten.</p>
+  <p class="mt-2">
+    <a class="btn btn-primary" href="https://sixxly.gumroad.com/l/command-pack">Get the Command Pack — AU$29</a>
+    <a class="btn btn-ghost" href="tools/deadline-calculator.html">Try the free deadline calculator</a>
+  </p>
+</div></section>
 
-    <section class="contact" id="contact">
-      <h2>Curious? Get in touch.</h2>
-      <p>We read everything. Drop us a line and we'll get back to you.</p>
-      <a class="mail" href="mailto:hello@sixxly.com">hello@sixxly.com</a>
-    </section>
-
-    <footer>
-      &copy; 2026 sixxly &middot; sixxly.com
-    </footer>
+<section><div class="wrap">
+  <h2>The problem</h2>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>Drowning in paper</h3>
+      <p>Letters, filings, exhibits, emails. A live dispute produces hundreds of documents,
+      and the one you need is always the one you can't find. Without a system, every search
+      starts from zero — the night before it's due.</p>
+    </div>
+    <div class="card">
+      <h3>Missed dates</h3>
+      <p>Orders set dates. Rules set dates. Registries set dates. Miss one and you may be
+      explaining yourself to a judge, or asking for indulgences you didn't need to ask for.
+      A date you didn't write down is a date you're trusting to memory.</p>
+    </div>
+    <div class="card">
+      <h3>The registry expects order</h3>
+      <p>Courts run on structure: numbered paragraphs, indexed bundles, precise references.
+      A self-represented party who files organized, findable material is easier to deal
+      with — and easier to take seriously.</p>
+    </div>
   </div>
+</div></section>
 
-  <!-- Hidden tracking pixel -->
-  <img src="https://track.sixxly.com/assets/pixel.png" style="display:none;" alt="" aria-hidden="true">
+<section class="alt" id="pack"><div class="wrap">
+  <h2>What's in the pack</h2>
+  <p class="dim">Six tools. Each one exists to stop a specific, common way cases go wrong.</p>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3><span class="num">01</span>Chronology template</h3>
+      <p>One dated line per event, with its source document. Prevents the scramble to
+      reconstruct what happened, in what order, when a deadline is already running.</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">02</span>Evidence index</h3>
+      <p>Every document numbered, described and located the day it arrives. Prevents the
+      exhibit you know exists but cannot produce when it matters.</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">03</span>Correspondence log</h3>
+      <p>Who said what to whom, on what date, by what channel. Prevents the dispute about
+      what was sent and when — you'll have the row, they'll have their recollection.</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">04</span>Deadline &amp; orders tracker</h3>
+      <p>Every date from every order and rule in one list, with what it requires and its
+      status. Prevents the quiet deadline that passes while you're busy with a loud one.</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">05</span>Hearing-prep checklist</h3>
+      <p>What to bring, what to file beforehand, what to have marked up and to hand.
+      Prevents standing at the lectern realising the page you need is at home.</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">06</span>Filing-system guide</h3>
+      <p>A plain naming and folder scheme that scales from ten documents to a thousand.
+      Prevents the folder called "Court stuff" that nobody — including you — can navigate.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Why it exists</h2>
+  <p style="max-width: 46rem;">The author spent five years self-represented in real
+  litigation. The hardest lesson wasn't about the law. It was that cases are lost to
+  disorganization before they are ever lost on the merits — the unfindable document, the
+  half-remembered date, the bundle assembled at midnight. The system in this pack was built
+  the slow way, under real pressure, one avoidable mistake at a time. You can have it in
+  the next five minutes instead.</p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Get the pack</h2>
+  <div class="price-box">
+    <p class="price"><span class="cur">AU$</span>29 <span class="dim small">one-time</span></p>
+    <ul class="ticks">
+      <li>Instant download</li>
+      <li>Use in any court or tribunal</li>
+      <li>Excel and Google-Sheets-ready CSVs</li>
+      <li>Plain-English guides for every template</li>
+      <li>Lifetime updates</li>
+      <li>30-day refund, no questions</li>
+    </ul>
+    <a class="btn btn-primary" href="https://sixxly.gumroad.com/l/command-pack">Get the Command Pack — AU$29</a>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Questions</h2>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Is this legal advice?</h3>
+      <p>No. Nothing in the pack tells you what to argue, how the law applies to you, or
+      what your deadlines are. It is document-management tooling and general procedural
+      information: templates and guides for keeping a case organized. For advice about
+      your situation, consult a lawyer.</p>
+    </div>
+    <div class="card">
+      <h3>What format are the files?</h3>
+      <p>The templates are CSV files that open cleanly in Excel, Google Sheets, LibreOffice
+      or Numbers. Each comes with a plain-English guide explaining how to use it and keep
+      it current. No special software, no accounts, no lock-in.</p>
+    </div>
+    <div class="card">
+      <h3>Which courts does it work for?</h3>
+      <p>Any court or tribunal, any dispute type. The templates track documents, dates,
+      correspondence and preparation — things every jurisdiction demands. They contain no
+      jurisdiction-specific rules, so always verify procedure and deadlines against your
+      court's current rules and with the registry.</p>
+    </div>
+    <div class="card">
+      <h3>What if it's not for me?</h3>
+      <p>Full refund within 30 days, no questions asked. Payment and refunds are handled
+      by Gumroad, so the process is automatic — you don't have to argue your case to get
+      your money back.</p>
+    </div>
+    <div class="card">
+      <h3>Who made this?</h3>
+      <p>Someone who spent five years running their own case without a lawyer, and built
+      this system to survive it. Sixxly sells the system, not war
+      stories: no real matters, parties or case facts appear anywhere in the pack.</p>
+    </div>
+  </div>
+</div></section>
+
+<footer class="site-foot"><div class="wrap">
+  <p>Sixxly provides document-management templates and general procedural information, not
+  legal advice. For advice about your situation, consult a lawyer. Court deadlines: always
+  verify against the current rules of your court and with the registry.</p>
+  <p>© 2026 Sixxly · <a href="legal.html">Terms, disclaimer &amp; refunds</a> ·
+  <a href="mailto:hello@sixxly.com">hello@sixxly.com</a></p>
+</div></footer>
+
 </body>
 </html>
