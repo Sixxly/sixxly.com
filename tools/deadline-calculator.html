@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Court Deadline Calculator — Free Calendar &amp; Business Day Counter | Sixxly</title>
+<meta name="description" content="Free court deadline calculator. Count calendar days or business days forward or backward from any date, instantly, in your browser. No sign-up, no data leaves your device. Always verify the result against your court's rules.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="../index.html">SIXXLY</a>
+  <nav class="nav">
+    <a href="deadline-calculator.html">Free Deadline Calculator</a>
+    <a href="../index.html#pack">The Command Pack</a>
+    <a href="../legal.html">Legal</a>
+  </nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <p class="kicker">Free tool</p>
+  <h1>Court Deadline Calculator</h1>
+  <p class="lead">Count calendar days or business days, forward or backward, from any date.
+  Runs entirely in your browser. Nothing you type leaves your device.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="field">
+        <label for="start-date">Start date</label>
+        <input type="date" id="start-date">
+      </div>
+      <div class="field">
+        <label for="num-days">Number of days</label>
+        <input type="number" id="num-days" min="0" max="3650" step="1" placeholder="e.g. 28">
+      </div>
+      <div class="field">
+        <label for="count-method">Counting method</label>
+        <select id="count-method">
+          <option value="calendar">Calendar days (every day counts)</option>
+          <option value="business">Business days (Mon–Fri only)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="direction">Direction</label>
+        <select id="direction">
+          <option value="forward">Forward from date</option>
+          <option value="backward">Backward from date</option>
+        </select>
+      </div>
+      <p class="small dim">The result updates as you type. No submit button, no storage, no
+      tracking.</p>
+    </div>
+
+    <div>
+      <div class="result-panel" id="result-panel" hidden>
+        <p class="dim small" style="margin-bottom:6px;">Result</p>
+        <p class="big" id="result-date"></p>
+        <p id="result-sentence" style="margin-top:10px;"></p>
+        <p class="small" id="weekend-note" hidden><strong>Lands on a weekend.</strong> Many
+        courts roll a deadline that falls on a non-business day forward to the next business
+        day — but not all do, and not in every situation. Verify with your registry.</p>
+        <p class="small dim" style="margin-bottom:0;">This tool does not know public holidays,
+        so a result can land on one without warning. Tip: check the official public holiday
+        list published by the relevant state or territory government before you rely on a date.</p>
+      </div>
+      <div class="notice mt-1">
+        This calculator does arithmetic, not law. It does not know your court's rules, your
+        state's public holidays, or how your particular time limit is counted. Confirm every
+        deadline against the current rules of your court and with the registry.
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>How courts count days</h2>
+  <p>Two deadlines that both say “14 days” can land on different dates, because counting
+  rules differ. Before you trust any count — including this one — check three things.</p>
+  <div class="grid grid-3 mt-1">
+    <div class="card">
+      <h3>Exclusive or inclusive?</h3>
+      <p>Most counting rules exclude the day the clock starts — the day you were served, or
+      the day the order was made — so day one is the following day. But some provisions count
+      differently, and the difference moves your deadline by a day. Read the exact rule that
+      sets your time limit.</p>
+    </div>
+    <div class="card">
+      <h3>Which days count?</h3>
+      <p>Some time limits run in calendar days, so weekends and holidays count. Others run in
+      business days, so they don't. Shorter periods are more likely to use business days, but
+      that is a tendency, not a rule you can rely on. The provision itself says which applies.</p>
+    </div>
+    <div class="card">
+      <h3>What if it lands on a closed day?</h3>
+      <p>Many courts treat a deadline that falls on a weekend, public holiday, or registry
+      closure as rolling to the next business day. Whether that applies to your deadline — and
+      whether it applies when you are counting backward — depends on your court's rules. Ask
+      the registry if you are not certain.</p>
+    </div>
+  </div>
+  <p class="mt-2">One more habit worth keeping: when a registry confirms a date, write down
+  who told you and when. A deadline you can source beats a deadline you remember.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="card">
+    <h3>Running a case on your own? Deadlines are only one list.</h3>
+    <p>The Litigant's Command Pack is a set of case-management templates for self-represented
+    litigants: a deadline register, a document index, a correspondence log, an orders and
+    compliance tracker, and plain-language guides to using them. One-time purchase, instant
+    download. AU$29.</p>
+    <p style="margin-bottom:0;"><a class="btn btn-primary" href="https://sixxly.gumroad.com/l/command-pack">Get the Command Pack — AU$29</a></p>
+  </div>
+</div></section>
+
+<footer class="site-foot"><div class="wrap">
+  <p>Sixxly provides document-management templates and general procedural information, not
+  legal advice. For advice about your situation, consult a lawyer. Court deadlines: always
+  verify against the current rules of your court and with the registry.</p>
+  <p>© 2026 Sixxly · <a href="../legal.html">Terms, disclaimer &amp; refunds</a> ·
+  <a href="mailto:hello@sixxly.com">hello@sixxly.com</a></p>
+</div></footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var startInput  = document.getElementById('start-date');
+  var daysInput   = document.getElementById('num-days');
+  var methodSel   = document.getElementById('count-method');
+  var directSel   = document.getElementById('direction');
+  var panel       = document.getElementById('result-panel');
+  var outDate     = document.getElementById('result-date');
+  var outSentence = document.getElementById('result-sentence');
+  var weekendNote = document.getElementById('weekend-note');
+
+  var WEEKDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+  // Default the start date to today (local time).
+  (function setToday() {
+    var now = new Date();
+    startInput.value = now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate());
+  })();
+
+  // Parse "YYYY-MM-DD" as a local date, avoiding the UTC shift of new Date(string).
+  function parseLocalDate(value) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+    if (!m) return null;
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    // Reject impossible dates the Date object would silently roll over.
+    if (d.getFullYear() !== +m[1] || d.getMonth() !== +m[2] - 1 || d.getDate() !== +m[3]) return null;
+    return d;
+  }
+
+  function formatLong(d) {
+    return WEEKDAYS[d.getDay()] + ', ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function isBusinessDay(d) {
+    var dow = d.getDay();
+    return dow !== 0 && dow !== 6;
+  }
+
+  // setDate arithmetic handles month and year boundaries correctly:
+  // e.g. 31 Dec + 1 day -> 1 Jan of the next year.
+  function addCalendarDays(start, n, sign) {
+    var d = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    d.setDate(d.getDate() + sign * n);
+    return d;
+  }
+
+  // Step one day at a time; count only Mon-Fri days landed on.
+  function addBusinessDays(start, n, sign) {
+    var d = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    var counted = 0;
+    while (counted < n) {
+      d.setDate(d.getDate() + sign);
+      if (isBusinessDay(d)) counted++;
+    }
+    return d;
+  }
+
+  function recalc() {
+    var start = parseLocalDate(startInput.value);
+    var raw = daysInput.value;
+    var n = parseInt(raw, 10);
+
+    if (!start || raw === '' || isNaN(n) || n < 0 || n > 3650 || String(n) !== String(raw).trim()) {
+      panel.hidden = true;
+      return;
+    }
+
+    var method = methodSel.value;                     // 'calendar' | 'business'
+    var sign = directSel.value === 'backward' ? -1 : 1;
+    var result = (method === 'business')
+      ? addBusinessDays(start, n, sign)
+      : addCalendarDays(start, n, sign);
+
+    outDate.textContent = formatLong(result);
+
+    var unit = (method === 'business') ? 'business day' : 'calendar day';
+    var linkWord = (sign === 1) ? 'from' : 'before';
+    outSentence.textContent = n + ' ' + unit + (n === 1 ? '' : 's') + ' ' + linkWord + ' ' +
+      formatLong(start) + '.';
+
+    weekendNote.hidden = !(method === 'calendar' && !isBusinessDay(result));
+
+    panel.hidden = false;
+  }
+
+  startInput.addEventListener('input', recalc);
+  daysInput.addEventListener('input', recalc);
+  methodSel.addEventListener('change', recalc);
+  directSel.addEventListener('change', recalc);
+
+  recalc();
+})();
+</script>
+
+</body>
+</html>
