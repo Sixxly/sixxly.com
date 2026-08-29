@@ -1,0 +1,8 @@
+PROVENANCE RECORD - 29 August 2026
+
+SHA-256 fingerprints of two private documents recorded on this date.
+The documents themselves are not published; these fingerprints prove,
+as at the timestamp of this commit, that those exact bytes existed.
+
+8ED57D7F1140BE4DD25C0F235E7BAE65482883DD4351F622D8BB3F99CC687F2F
+E0B5E0B6293D5B18551DE1859A7BE20775ED3398763DE997D34785391B17EA72
